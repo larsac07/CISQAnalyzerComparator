@@ -8,10 +8,6 @@ import org.jsoup.nodes.Document;
 
 public class XMLReader {
 
-	public XMLReader() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public Document getXMLDoc(File xmlFile) {
 		try {
 			Document doc = Jsoup.parse(xmlFile, "utf-8");
