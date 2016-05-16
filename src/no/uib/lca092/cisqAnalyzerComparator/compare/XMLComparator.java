@@ -56,27 +56,48 @@ public class XMLComparator {
 		}
 		metricAndFiles = sortSet(metricAndFiles);
 
-		squidsIssues.removeAll(museIssues);
-		museIssues.removeAll(squidsIssues);
+		// // Prepare a union
+		// List<Integer> union = new ArrayList<Integer>(list1);
+		// union.addAll(list2);
+		// // Prepare an intersection
+		// List<Integer> intersection = new ArrayList<Integer>(list1);
+		// intersection.retainAll(list2);
+		// // Subtract the intersection from the union
+		// union.removeAll(intersection);
+
+		Set<String> union = new TreeSet<>(squidsIssues);
+		union.addAll(squidsIssues);
+		Set<String> intersection = new TreeSet<>(union);
+		intersection.retainAll(museIssues);
+		squidsIssues.removeAll(intersection);
+		museIssues.removeAll(intersection);
 
 		String currentMetricAndFile = "";
+		final String NL = System.lineSeparator();
 		for (String metricAndFile : metricAndFiles) {
+			String output = "";
+			boolean print = false;
 			if (!currentMetricAndFile.equals(metricAndFile)) {
 				currentMetricAndFile = metricAndFile;
-				System.out.println();
-				System.out.println("Metric and File " + metricAndFile + ":");
+				output += NL;
+				output += "Metric and File " + metricAndFile + ":" + NL;
 			}
-			System.out.println("SQuIDS:");
+			output += "SQuIDS:" + NL;
 			for (String issueID : squidsIssues) {
 				if (issueID.substring(0, issueID.lastIndexOf(":")).equals(metricAndFile)) {
-					System.out.println(" - " + issueID);
+					output += " - " + issueID + NL;
+					print = true;
 				}
 			}
-			System.out.println("MUSE:");
+			output += "MUSE:" + NL;
 			for (String issueID : museIssues) {
 				if (issueID.substring(0, issueID.lastIndexOf(":")).equals(metricAndFile)) {
-					System.out.println(" - " + issueID);
+					output += " - " + issueID + NL;
+					print = true;
 				}
+			}
+			if (print) {
+				System.out.println(output);
 			}
 		}
 	}
@@ -98,8 +119,8 @@ public class XMLComparator {
 		excludedMetrics.add("M13");
 		excludedMetrics.add("M14");
 		excludedMetrics.add("M15");
-		// excludedMetrics.add("M16");
-		excludedMetrics.add("M17");
+		excludedMetrics.add("M16");
+		// excludedMetrics.add("M17");
 		excludedMetrics.add("M18");
 		excludedMetrics.add("M19");
 		excludedMetrics.add("M20");
