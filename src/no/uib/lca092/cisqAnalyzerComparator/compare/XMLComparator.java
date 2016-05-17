@@ -74,6 +74,10 @@ public class XMLComparator {
 
 		String currentMetricAndFile = "";
 		final String NL = System.lineSeparator();
+		int squidsUniques = 0;
+		int museUniques = 0;
+		String squidsFiles = "";
+		String museFiles = "";
 		for (String metricAndFile : metricAndFiles) {
 			String output = "";
 			boolean print = false;
@@ -87,6 +91,9 @@ public class XMLComparator {
 				if (issueID.substring(0, issueID.lastIndexOf(":")).equals(metricAndFile)) {
 					output += " - " + issueID + NL;
 					print = true;
+					squidsUniques++;
+					Element squidsIssue = squidsIssuesMap.get(issueID);
+					squidsFiles += squidsIssue.select("file").text() + ":" + squidsIssue.select("line").text() + " ";
 				}
 			}
 			output += "MUSE:" + NL;
@@ -94,12 +101,23 @@ public class XMLComparator {
 				if (issueID.substring(0, issueID.lastIndexOf(":")).equals(metricAndFile)) {
 					output += " - " + issueID + NL;
 					print = true;
+					museUniques++;
+					Element museIssue = museIssuesMap.get(issueID);
+					museFiles += museIssue.select("file").text() + ":" + museIssue.select("line").text() + " ";
 				}
 			}
 			if (print) {
 				System.out.println(output);
 			}
 		}
+		System.out.println("SQuIDS unique problems found: " + squidsUniques);
+		System.out.println("MUSE unique problems found: " + museUniques);
+		System.out.println();
+		System.out.println("SQuIDS files: ");
+		System.out.println(squidsFiles);
+		System.out.println();
+		System.out.println("MUSE files: ");
+		System.out.println(museFiles);
 	}
 
 	private boolean includedMetric(String metric) {
