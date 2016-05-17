@@ -103,34 +103,34 @@ public class XMLComparator {
 	}
 
 	private boolean includedMetric(String metric) {
-		List<String> excludedMetrics = new ArrayList<>();
-		excludedMetrics.add("M01");
-		excludedMetrics.add("M02");
-		excludedMetrics.add("M03");
-		excludedMetrics.add("M04");
-		excludedMetrics.add("M05");
-		// excludedMetrics.add("M06");
-		excludedMetrics.add("M07");
-		excludedMetrics.add("M08");
-		excludedMetrics.add("M09");
-		excludedMetrics.add("M10");
-		excludedMetrics.add("M11");
-		excludedMetrics.add("M12");
-		excludedMetrics.add("M13");
-		excludedMetrics.add("M14");
-		excludedMetrics.add("M15");
-		excludedMetrics.add("M16");
-		// excludedMetrics.add("M17");
-		excludedMetrics.add("M18");
-		excludedMetrics.add("M19");
-		excludedMetrics.add("M20");
-		excludedMetrics.add("M21");
-		for (String excludedMetric : excludedMetrics) {
-			if (metric.equals(excludedMetric)) {
-				return false;
+		List<String> includedMetrics = new ArrayList<>();
+		// includedMetrics.add("M01");
+		// includedMetrics.add("M02");
+		// includedMetrics.add("M03");
+		// includedMetrics.add("M04");
+		// includedMetrics.add("M05");
+		// includedMetrics.add("M06");
+		// includedMetrics.add("M07");
+		// includedMetrics.add("M08");
+		// includedMetrics.add("M09");
+		// includedMetrics.add("M10");
+		// includedMetrics.add("M11");
+		// includedMetrics.add("M12");
+		// includedMetrics.add("M13");
+		// includedMetrics.add("M14");
+		// includedMetrics.add("M15");
+		// includedMetrics.add("M16");
+		includedMetrics.add("M17");
+		// includedMetrics.add("M18");
+		// includedMetrics.add("M19");
+		// includedMetrics.add("M20");
+		// includedMetrics.add("M21");
+		for (String includedMetric : includedMetrics) {
+			if (metric.equals(includedMetric)) {
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	protected <E> Set<E> sortSet(Set<E> set) {
