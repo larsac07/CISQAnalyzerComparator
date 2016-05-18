@@ -117,7 +117,17 @@ public class XMLComparator {
 		System.out.println(squidsFiles);
 		System.out.println();
 		System.out.println("MUSE files: ");
-		System.out.println(museFiles);
+		System.out.println(adaptToLocalPaths(museFiles));
+	}
+
+	private String adaptToLocalPaths(String paths) {
+		paths = paths.replaceAll("/media/Daten/Studium/Masterarbeit/Benchmarking/PROJECT_ROOT_JAVA",
+				"/home/lars/Development/java_workspace");
+		paths = paths.replaceAll("JabRef 2.3.1/src", "jabref-2.3.1/src/java");
+		paths = paths.replaceAll("RSSOwl 1.2.4/src", "rssowl_1_2_4/src/java");
+		paths = paths.replaceAll("Log4j 1.2.15/src", "log4j/src/main/java");
+		paths = paths.replaceAll("Checkstyle 4.4/src", "checkstyle/src/checkstyle");
+		return paths;
 	}
 
 	private boolean includedMetric(String metric) {
@@ -125,9 +135,9 @@ public class XMLComparator {
 		// includedMetrics.add("M01");
 		// includedMetrics.add("M02");
 		// includedMetrics.add("M03");
-		// includedMetrics.add("M04");
+		includedMetrics.add("M04");
 		// includedMetrics.add("M05");
-		// includedMetrics.add("M06");
+		includedMetrics.add("M06");
 		// includedMetrics.add("M07");
 		// includedMetrics.add("M08");
 		// includedMetrics.add("M09");
