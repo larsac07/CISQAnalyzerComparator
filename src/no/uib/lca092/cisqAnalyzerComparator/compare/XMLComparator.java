@@ -56,21 +56,8 @@ public class XMLComparator {
 		}
 		metricAndFiles = sortSet(metricAndFiles);
 
-		// // Prepare a union
-		// List<Integer> union = new ArrayList<Integer>(list1);
-		// union.addAll(list2);
-		// // Prepare an intersection
-		// List<Integer> intersection = new ArrayList<Integer>(list1);
-		// intersection.retainAll(list2);
-		// // Subtract the intersection from the union
-		// union.removeAll(intersection);
-
-		Set<String> union = new TreeSet<>(squidsIssues);
-		union.addAll(squidsIssues);
-		Set<String> intersection = new TreeSet<>(union);
-		intersection.retainAll(museIssues);
-		squidsIssues.removeAll(intersection);
-		museIssues.removeAll(intersection);
+		// Remove common items
+		removeCommonItems(squidsIssues, museIssues);
 
 		String currentMetricAndFile = "";
 		final String NL = System.lineSeparator();
@@ -114,10 +101,24 @@ public class XMLComparator {
 		System.out.println("MUSE unique problems found: " + museUniques);
 		System.out.println();
 		System.out.println("SQuIDS files: ");
-		System.out.println(squidsFiles);
+		// System.out.println(squidsFiles);
+		System.out.println(squidsFiles.replaceAll("([0-9]) (/)", "$1\n$2"));
 		System.out.println();
 		System.out.println("MUSE files: ");
-		System.out.println(adaptToLocalPaths(museFiles));
+		// System.out.println(adaptToLocalPaths(museFiles));
+		System.out.println(adaptToLocalPaths(museFiles).replaceAll("([0-9]) (/)", "$1\n$2"));
+	}
+
+	private <E> void removeCommonItems(Set<E> set1, Set<E> set2) {
+		Set<E> union = new TreeSet<>();
+		union.addAll(set1);
+		union.addAll(set2);
+		for (E e : union) {
+			if (set1.contains(e) && set2.contains(e)) {
+				set1.remove(e);
+				set2.remove(e);
+			}
+		}
 	}
 
 	private String adaptToLocalPaths(String paths) {
@@ -135,9 +136,9 @@ public class XMLComparator {
 		// includedMetrics.add("M01");
 		// includedMetrics.add("M02");
 		// includedMetrics.add("M03");
-		includedMetrics.add("M04");
+		// includedMetrics.add("M04");
 		// includedMetrics.add("M05");
-		includedMetrics.add("M06");
+		// includedMetrics.add("M06");
 		// includedMetrics.add("M07");
 		// includedMetrics.add("M08");
 		// includedMetrics.add("M09");
